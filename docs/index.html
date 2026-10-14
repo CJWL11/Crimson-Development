@@ -3,33 +3,77 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Website</title>
+  <title>Your Name — Portfolio</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header>
-    <h1>My Website</h1>
-    <p>Aerospace, design, coding and projects</p>
+
+  <nav>
+    <a class="logo" href="#">yourname.dev</a>
+    <div class="links">
+      <a href="#work">Work</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <p class="tag">// welcome</p>
+    <h1>Designing, building<br>and engineering ideas.</h1>
+    <p class="intro">
+      I’m interested in aerospace, design technology, electronics and programming.
+      This is where I share my projects.
+    </p>
+    <a class="button" href="#work">View projects</a>
   </header>
 
   <main>
-    <section>
-      <h2>Welcome</h2>
-      <p>This is my first website. I’ll add my projects here.</p>
+    <section id="work">
+      <h2>Selected work</h2>
+      <div class="grid">
+        <article class="card">
+          <span>01</span>
+          <h3>Discord bot</h3>
+          <p>Python automation and community tools.</p>
+        </article>
+
+        <article class="card">
+          <span>02</span>
+          <h3>Design portfolio</h3>
+          <p>Product design, sketching and CAD work.</p>
+        </article>
+
+        <article class="card">
+          <span>03</span>
+          <h3>Electronics</h3>
+          <p>Circuits, PCB ideas and practical builds.</p>
+        </article>
+      </div>
     </section>
 
-    <section>
-      <h2>Projects</h2>
-      <ul>
-        <li>Discord bot</li>
-        <li>Python projects</li>
-        <li>Design work</li>
-      </ul>
+    <section id="about">
+      <h2>About</h2>
+      <p>
+        I’m a student exploring aerospace engineering, programming and design.
+        I like turning ideas into functional projects, from Discord bots to physical designs.
+      </p>
+    </section>
+
+    <section id="contact">
+      <h2>Contact</h2>
+      <p>Want to get in touch?</p>
+      <a class="button" href="mailto:you@example.com">Email me</a>
     </section>
   </main>
 
   <footer>
-    <p>© 2026 My Name</p>
+    <p>© 2026 Your Name</p>
   </footer>
+
 </body>
 </html>
