@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Your Name — Portfolio</title>
+  <title>Crimson Development</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,66 +14,190 @@
 <body>
 
   <nav>
-    <a class="logo" href="#">yourname.dev</a>
+    <a class="logo" href="#top">CRIMSON<span>DEV</span></a>
     <div class="links">
-      <a href="#work">Work</a>
-      <a href="#about">About</a>
-      <a href="#contact">Contact</a>
+      <a href="#team">Team</a>
+      <a href="#blog">Dev Blog</a>
+      <a href="#projects">Projects</a>
+      <a href="#trading">Trading Hub</a>
     </div>
+    <button id="manageButton" class="small-button">Management</button>
   </nav>
 
-  <header class="hero">
-    <p class="tag">// welcome</p>
-    <h1>Designing, building<br>and engineering ideas.</h1>
+  <header class="hero" id="top">
+    <p class="tag">// crimson development</p>
+    <h1>Maps. Development.<br>Community trading.</h1>
     <p class="intro">
-      I’m interested in aerospace, design technology, electronics and programming.
-      This is where I share my projects.
+      Crimson Development is a BRM5 RGE map and development team.
+      We build maps, develop community systems and provide a unique user-to-user trading experience.
     </p>
-    <a class="button" href="#work">View projects</a>
+    <div class="hero-buttons">
+      <a class="button" href="#projects">Current projects</a>
+      <a class="button ghost" href="#trading">Trading Hub</a>
+    </div>
   </header>
 
   <main>
-    <section id="work">
-      <h2>Selected work</h2>
-      <div class="grid">
-        <article class="card">
-          <span>01</span>
-          <h3>Discord bot</h3>
-          <p>Python automation and community tools.</p>
+    <section id="team">
+      <div class="section-head">
+        <h2>The Team</h2>
+        <p class="section-note">Swipe or scroll sideways to meet the developers.</p>
+      </div>
+
+      <div class="h-scroll" id="teamScroll">
+        <article class="profile-card">
+          <img class="avatar" src="https://via.placeholder.com/160" alt="Developer profile picture">
+          <h3>Developer Name</h3>
+          <p class="role">Founder / Lead Developer</p>
+          <p class="bio">Short update or blog-style note about what they are working on.</p>
         </article>
 
-        <article class="card">
-          <span>02</span>
-          <h3>Design portfolio</h3>
-          <p>Product design, sketching and CAD work.</p>
+        <article class="profile-card">
+          <img class="avatar" src="https://via.placeholder.com/160" alt="Developer profile picture">
+          <h3>Developer Name</h3>
+          <p class="role">Map Designer</p>
+          <p class="bio">Currently working on map layout, terrain and environment design.</p>
         </article>
 
-        <article class="card">
-          <span>03</span>
-          <h3>Electronics</h3>
-          <p>Circuits, PCB ideas and practical builds.</p>
+        <article class="profile-card">
+          <img class="avatar" src="https://via.placeholder.com/160" alt="Developer profile picture">
+          <h3>Developer Name</h3>
+          <p class="role">Community Manager</p>
+          <p class="bio">Managing events, announcements and community feedback.</p>
         </article>
       </div>
     </section>
 
-    <section id="about">
-      <h2>About</h2>
-      <p>
-        I’m a student exploring aerospace engineering, programming and design.
-        I like turning ideas into functional projects, from Discord bots to physical designs.
-      </p>
+    <section id="blog">
+      <div class="section-head">
+        <h2>Dev Blog</h2>
+        <button id="toggleBlog" class="small-button">View all posts</button>
+      </div>
+
+      <div class="blog-grid" id="latestPosts">
+        <article class="post">
+          <p class="date">14 Oct 2026</p>
+          <h3>Website development begins</h3>
+          <p>The Crimson Development website is now in development, with the homepage, team section and project hub being built first.</p>
+        </article>
+
+        <article class="post">
+          <p class="date">Coming soon</p>
+          <h3>Trading Hub planning</h3>
+          <p>We are planning the user-to-user trading system and the tools that will support it.</p>
+        </article>
+
+        <article class="post">
+          <p class="date">Coming soon</p>
+          <h3>BRM5 RGE map progress</h3>
+          <p>Map design, layout testing and environment development are underway.</p>
+        </article>
+      </div>
+
+      <div id="allPosts" class="hidden">
+        <h3>All updates</h3>
+        <div id="allPostsList"></div>
+      </div>
     </section>
 
-    <section id="contact">
-      <h2>Contact</h2>
-      <p>Want to get in touch?</p>
-      <a class="button" href="mailto:you@example.com">Email me</a>
+    <section id="projects">
+      <div class="section-head">
+        <h2>Current Projects</h2>
+        <button id="toggleProjects" class="small-button">View all projects</button>
+      </div>
+
+      <div class="project-grid" id="latestProjects">
+        <article class="card">
+          <span class="status">In development</span>
+          <h3>Main Website</h3>
+          <p>The Crimson Development website, blog and management tools.</p>
+        </article>
+
+        <article class="card">
+          <span class="status">In development</span>
+          <h3>BRM5 RGE Map</h3>
+          <p>Our current map project, including layout, environments and gameplay areas.</p>
+        </article>
+
+        <article class="card">
+          <span class="status">Planning</span>
+          <h3>Trading System</h3>
+          <p>A user-to-user trading experience designed for the community.</p>
+        </article>
+      </div>
+
+      <div id="allProjects" class="hidden">
+        <h3>All projects</h3>
+        <div id="allProjectsList"></div>
+      </div>
+    </section>
+
+    <section id="trading">
+      <div class="section-head">
+        <h2>Trading Hub</h2>
+      </div>
+
+      <p class="notice">
+        The Trading Hub is intended for community and educational purposes.
+        Nothing on this site is financial advice. Trading involves risk, and all
+        decisions are your own responsibility.
+      </p>
+
+      <div class="grid">
+        <article class="card">
+          <h3>User-to-User Trading</h3>
+          <p>Our planned trading system will let community members trade safely and clearly.</p>
+        </article>
+
+        <article class="card">
+          <h3>Trading Guides</h3>
+          <p>Beginner-friendly explanations, terminology and safety guidance.</p>
+        </article>
+
+        <article class="card">
+          <h3>Market Updates</h3>
+          <p>Team-written updates, observations and community discussion topics.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="manage" class="hidden">
+      <h2>Management Mode</h2>
+
+      <p class="notice">
+        Demo mode: posts created here are saved only in this browser using localStorage.
+        They will not appear for other visitors or survive clearing browser data.
+      </p>
+
+      <div id="loginBox">
+        <label for="accessCode">Access code</label>
+        <input id="accessCode" type="password" placeholder="Enter access code">
+        <button id="loginButton" class="button">Enter management mode</button>
+        <p id="loginError" class="error hidden">Incorrect access code.</p>
+      </div>
+
+      <div id="editorBox" class="hidden">
+        <h3>Create a dev-blog post</h3>
+
+        <label for="postTitle">Title</label>
+        <input id="postTitle" type="text" placeholder="Post title">
+
+        <label for="postDate">Date</label>
+        <input id="postDate" type="text" placeholder="14 Oct 2026">
+
+        <label for="postBody">Post</label>
+        <textarea id="postBody" rows="5" placeholder="Write the update..."></textarea>
+
+        <button id="createPost" class="button">Publish post</button>
+        <button id="logoutButton" class="small-button">Log out</button>
+      </div>
     </section>
   </main>
 
   <footer>
-    <p>© 2026 Your Name</p>
+    <p>© 2026 Crimson Development — BRM5 RGE map and development team</p>
   </footer>
 
+  <script src="script.js"></script>
 </body>
 </html>
