@@ -4,6 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dev Blog — Crimson Development</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -19,22 +22,22 @@
   </nav>
 
   <main>
-    <section>
-      <h2>Dev Blog</h2>
-      <p class="section-note">Latest development updates from the Crimson Development team.</p>
-
-      <div class="blog-grid">
-        <article class="post">
-          <p class="date">14 Oct 2026</p>
-          <h3>Website development begins</h3>
-          <p>The Crimson Development website is now in development.</p>
-        </article>
+    <section class="page-top">
+      <div class="section-head">
+        <h2>Dev Blog</h2>
+        <p class="section-note">All development updates from the team. Click a post to read it in full.</p>
       </div>
+
+      <!-- Filled from js/content.js -->
+      <div class="thread-list" id="blogList"></div>
     </section>
   </main>
 
   <footer>
     <p>© 2026 Crimson Development</p>
   </footer>
+
+  <script src="js/content.js"></script>
+  <script src="js/site.js"></script>
 </body>
 </html>

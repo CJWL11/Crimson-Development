@@ -73,55 +73,21 @@
     <section id="blog">
       <div class="section-head">
         <h2>Dev Blog</h2>
-        <button id="toggleBlog" class="small-button">View all posts</button>
+        <a class="small-button" href="blog.html">View all posts</a>
       </div>
 
-      <div class="blog-grid" id="latestPosts">
-        <article class="post">
-          <p class="date">14 Oct 2026</p>
-          <h3>Website development begins</h3>
-          <p>The Crimson Development website is now in development, with the homepage, team section and project hub being built first.</p>
-        </article>
-
-        <article class="post">
-          <p class="date">Coming soon</p>
-          <h3>Trading Hub planning</h3>
-          <p>We are planning the user-to-user trading system and the tools that will support it.</p>
-        </article>
-
-        <article class="post">
-          <p class="date">Coming soon</p>
-          <h3>BRM5 RGE map progress</h3>
-          <p>Map design, layout testing and environment development are underway.</p>
-        </article>
-      </div>
-
-      <div id="allPosts" class="hidden">
-        <h3>All updates</h3>
-        <div id="allPostsList"></div>
-      </div>
+      <!-- Filled from js/content.js -->
+      <div class="blog-grid" id="latestPosts"></div>
     </section>
 
     <section id="projects">
       <div class="section-head">
         <h2>Current Projects</h2>
-        <button id="toggleProjects" class="small-button">View all projects</button>
+        <a class="small-button" href="projects.html">View all projects</a>
       </div>
 
-      <div class="project-grid" id="latestProjects">
-        <article class="card">
-          <span class="status">In development</span>
-          <h3>Skarvik</h3>
-          <p>A map based in a fictional, disputed area between Finland and Russia.</p>
-        </article>
-
-        
-      </div>
-
-      <div id="allProjects" class="hidden">
-        <h3>All projects</h3>
-        <div id="allProjectsList"></div>
-      </div>
+      <!-- Filled from js/content.js -->
+      <div class="project-grid" id="latestProjects"></div>
     </section>
 
     <section id="trading">
@@ -146,44 +112,13 @@
         </article>
       </div>
     </section>
-
-    <section id="manage" class="hidden">
-      <h2>Management Mode</h2>
-
-      <p class="notice">
-        Demo mode: posts created here are saved only in this browser using localStorage.
-        They will not appear for other visitors or survive clearing browser data.
-      </p>
-
-      <div id="loginBox">
-        <label for="accessCode">Access code</label>
-        <input id="accessCode" type="password" placeholder="Enter access code">
-        <button id="loginButton" class="button">Enter management mode</button>
-        <p id="loginError" class="error hidden">Incorrect access code.</p>
-      </div>
-
-      <div id="editorBox" class="hidden">
-        <h3>Create a dev-blog post</h3>
-
-        <label for="postTitle">Title</label>
-        <input id="postTitle" type="text" placeholder="Post title">
-
-        <label for="postDate">Date</label>
-        <input id="postDate" type="text" placeholder="14 Oct 2026">
-
-        <label for="postBody">Post</label>
-        <textarea id="postBody" rows="5" placeholder="Write the update..."></textarea>
-
-        <button id="createPost" class="button">Publish post</button>
-        <button id="logoutButton" class="small-button">Log out</button>
-      </div>
-    </section>
   </main>
 
   <footer>
     <p>© 2026 Crimson Development — BRM5 RGE map and development team</p>
   </footer>
 
-  <script src="script.js"></script>
+  <script src="js/content.js"></script>
+  <script src="js/site.js"></script>
 </body>
 </html>

@@ -4,6 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Projects — Crimson Development</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -19,22 +22,22 @@
   </nav>
 
   <main>
-    <section>
-      <h2>Current Projects</h2>
-      <p class="section-note">Active maps, systems and development work.</p>
-
-      <div class="project-grid">
-        <article class="card">
-          <span class="status">In development</span>
-          <h3>Skarvik</h3>
-          <p>A map based in a fictional, disputed area between Finland and Russia.</p>
-        </article>
+    <section class="page-top">
+      <div class="section-head">
+        <h2>Projects</h2>
+        <p class="section-note">Active maps, systems and development work. Open a project for its lore, gallery and progress log.</p>
       </div>
+
+      <!-- Filled from js/content.js -->
+      <div class="thread-list" id="projectList"></div>
     </section>
   </main>
 
   <footer>
     <p>© 2026 Crimson Development</p>
   </footer>
+
+  <script src="js/content.js"></script>
+  <script src="js/site.js"></script>
 </body>
 </html>
