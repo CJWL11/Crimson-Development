@@ -50,14 +50,20 @@ window.CRIMSON = {
       id: "skarvik", // used in links: project.html?id=skarvik
       name: "Skarvik",
       status: "In development",
-      cover: "", // e.g. "images/projects/skarvik/cover.jpg"
+      cover: "images/projects/skarvik/cover.jpg",
       summary: "A map based in a fictional, disputed area between Finland and Russia.",
       description: "Skarvik is a BRM5 RGE map set in a fictional, disputed area between Finland and Russia.",
-      lore: "Add the story and background of Skarvik here.",
+      lore: "A fictional area of northern Finland, and a geopolitical nightmare. The Skarvik valley lies in territory disputed between the Russian Federation and Finland. Previously of little interest to either party, the citizens of Skarvik lived in relative peace, governed mostly by Finnish rules and regulations.\n\nFollowing an increase in tension in Eastern Europe, the Russian Federation laid claim to the area and dispatched a hired force known as the PoD, infamous for their work in Ronograd. Finland appealed to the UN, but the UN feigned ignorance, and so NATO authorised the deployment of a specialised task force: Task Force Adak. Their previous experience against the PoD and in winter combat made them the natural choice.\n\nAnd so the quiet battle for Skarvik began.",
       images: [
-        // { src: "images/projects/skarvik/screenshot-1.jpg", caption: "Northern ridge" }
+        { src: "images/projects/skarvik/cover.jpg", caption: "Looking out over the coastline" }
       ],
       updates: [
+        {
+          title: "FOB complete",
+          date: "16 Oct 2026",
+          body: "The Forward Operating Base is finished. Work now moves on to the basin directly below the FOB.",
+          images: []
+        },
         {
           title: "Project started",
           date: "14 Oct 2026",
