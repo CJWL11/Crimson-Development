@@ -55,7 +55,13 @@ window.CRIMSON = {
       description: "Skarvik is a BRM5 RGE map set in a fictional, disputed area between Finland and Russia.",
       lore: "A fictional area of northern Finland, and a geopolitical nightmare. The Skarvik valley lies in territory disputed between the Russian Federation and Finland. Previously of little interest to either party, the citizens of Skarvik lived in relative peace, governed mostly by Finnish rules and regulations.\n\nFollowing an increase in tension in Eastern Europe, the Russian Federation laid claim to the area and dispatched a hired force known as the PoD, infamous for their work in Ronograd. Finland appealed to the UN, but the UN feigned ignorance, and so NATO authorised the deployment of a specialised task force: Task Force Adak. Their previous experience against the PoD and in winter combat made them the natural choice.\n\nAnd so the quiet battle for Skarvik began.",
       images: [
-        { src: "images/projects/skarvik/cover.jpg", caption: "Looking out over the coastline" }
+        { src: "images/projects/skarvik/cover.jpg", caption: "View across the Skarvik valley" },
+        { src: "images/projects/skarvik/fob-overhead.jpg", caption: "The FOB from above" },
+        { src: "images/projects/skarvik/fob-building.jpg", caption: "One of the FOB buildings" },
+        { src: "images/projects/skarvik/forest-road.jpg", caption: "Forest road leading out from the checkpoint" },
+        { src: "images/projects/skarvik/terrain-blockout.jpg", caption: "Terrain blockout (work in progress)" },
+        { src: "images/projects/skarvik/high-ground.jpg", caption: "High ground rising above the forest" },
+        { src: "images/projects/skarvik/treeline.jpg", caption: "Along the treeline" }
       ],
       updates: [
         {
