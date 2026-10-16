@@ -663,3 +663,14 @@ button.thread-head {
     display: none;
   }
 }
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+}
+
+.logo-mark {
+  height: 1.8rem;
+  width: auto;
+  margin-right: 0.6rem;
+}
