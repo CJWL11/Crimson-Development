@@ -1,9 +1,8 @@
 /*
   CRIMSON DEVELOPMENT — SITE CONTENT
   ---------------------------------
-  This is the only file you need to edit to add blog posts, projects and
-  progress updates. Every page (home, blog, projects, project pages) reads
-  from here.
+  This is the only file you need to edit to change the team, blog posts,
+  projects and progress updates. Every page reads from here.
 
   Images: put the files in docs/images/ (e.g. docs/images/projects/skarvik/)
   and reference them relative to the docs folder, e.g.
@@ -16,9 +15,26 @@
 */
 
 window.CRIMSON = {
+  team: [
+    {
+      name: "CJ",
+      role: "Founder / Lead Developer",
+      photo: "images/team/cj.png",
+      summary: "Hi, my name is CJ. I am an avgeek and started CRIMSONDEV off our first project, Skarvik.", // shown on the home page
+      bio: "Hi, my name is CJ. I am an avgeek and started CRIMSONDEV off our first project, Skarvik." // shown on the Team page
+    },
+    {
+      name: "Aves",
+      role: "Developer / Community Manager",
+      photo: "images/team/aves.jpg",
+      summary: "Playing BRM5 since around 2022. Likes RGE and makes props every once in a while.",
+      bio: "I'm Aves. I've been playing BRM5 since around 2022, but really started LARPing hard around January 2026.\n\nI like RGE and also make props every once in a while. I met CJ in a faction, and that's where I've spent most of my time in RGE."
+    }
+  ],
+
   posts: [
     {
-      id: "website-development-begins", // used in links: blog.html#website-development-begins
+      id: "website-development-begins", // used in links: blog.html#post-website-development-begins
       title: "Website development begins",
       date: "14 Oct 2026",
       summary: "The Crimson Development website is now in development, with the homepage, team section and project hub being built first.",

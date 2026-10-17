@@ -15,7 +15,7 @@
 <body>
 
 <nav>
-  <a class="logo" href="index.html"><img class="logo-mark" src="images/logo.svg" alt="">CRIMSON<span>DEV</span></a>
+  <a class="logo" href="index.html"><img class="logo-mark" src="images/logo.svg" width="26" height="28" alt="">CRIMSON<span>DEV</span></a>
 
   <div class="links">
     <a href="team.html">Team</a>
@@ -44,31 +44,11 @@
     <section id="team">
       <div class="section-head">
         <h2>The Team</h2>
-        <p class="section-note">Swipe or scroll sideways to see more.</p>
+        <a class="small-button" href="team.html">Meet the team</a>
       </div>
 
-      <div class="h-scroll" id="teamScroll">
-        <article class="profile-card">
-          <img class="avatar" src="images/team/cj.png" alt="CJ profile picture">
-          <h3>CJ</h3>
-          <p class="role">Founder / Lead Developer</p>
-          <p class="bio">Hi, my name is CJ. I am an avgeek and started CRIMSONDEV off our first project Skarik.</p>
-        </article>
-
-        <article class="profile-card">
-          <img class="avatar" src="https://via.placeholder.com/160" alt="Aves profile picture">
-          <h3>Aves</h3>
-          <p class="role">Map Designer</p>
-          <p class="bio">Currently working on map layout, terrain and environment design.</p>
-        </article>
-
-        <article class="profile-card">
-          <img class="avatar" src="images/team/rayzen.png" alt="RayZen profile picture">
-          <h3>RayZen</h3>
-          <p class="role">Chief Advisor / Community Management</p>
-          <p class="bio">Managing events, announcements and community feedback.</p>
-        </article>
-      </div>
+      <!-- Filled from js/content.js -->
+      <div class="h-scroll" id="teamScroll"></div>
     </section>
 
     <section id="blog">
@@ -94,23 +74,24 @@
     <section id="trading">
       <div class="section-head">
         <h2>Trading Hub</h2>
+        <a class="small-button" href="trading.html">Visit the Trading Hub</a>
       </div>
 
       <div class="grid">
-        <article class="card">
+        <a class="card" href="trading.html">
           <h3>User-to-User Trading</h3>
-          <p>A unique system, allows users to trade with each other for props and maps.</p>
-        </article>
+          <p>Members trade props and maps with each other. No money involved.</p>
+        </a>
 
-        <article class="card">
+        <a class="card" href="trading.html#rules">
           <h3>Trading Regulations</h3>
-          <p>The set of rules and requirements in order to trade within our community.</p>
-        </article>
+          <p>The rules and requirements for trading within our community.</p>
+        </a>
 
-        <article class="card">
+        <a class="card" href="trading.html#forum">
           <h3>Trading Forum</h3>
-          <p>A post about all props or maps currently open for trading.</p>
-        </article>
+          <p>Every prop and map currently open for trading, or open a trading page of your own.</p>
+        </a>
       </div>
     </section>
   </main>

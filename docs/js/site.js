@@ -1,8 +1,11 @@
-// Renders the blog and project content from content.js into whichever page is open.
+// Renders the team, blog and project content from content.js into whichever page is open.
 (function () {
-  const content = window.CRIMSON || { posts: [], projects: [] };
+  const content = window.CRIMSON || {};
+  const team = content.team || [];
+  const posts = content.posts || [];
+  const projects = content.projects || [];
 
-  // ---------- helpers ----------
+  // ---------- helpers (shared with trades.js via window.CrimsonUI) ----------
 
   function el(tag, className, text) {
     const node = document.createElement(tag);
@@ -19,13 +22,19 @@
     return frag;
   }
 
+  function prose(text, extraClass) {
+    const div = el("div", "prose" + (extraClass ? " " + extraClass : ""));
+    div.appendChild(paragraphs(text));
+    return div;
+  }
+
   // Cover image, or a placeholder tile showing the project's initial.
-  function cover(project, className) {
+  function cover(project, className, eager) {
     if (project.cover) {
       const img = el("img", className);
       img.src = project.cover;
       img.alt = project.name;
-      img.loading = "lazy";
+      if (!eager) img.loading = "lazy";
       return img;
     }
     const ph = el("div", className + " placeholder", project.name.charAt(0));
@@ -33,53 +42,87 @@
     return ph;
   }
 
+  // images: [{ src, caption }]. Each image is a button so it works from the keyboard too.
   function gallery(images) {
     const wrap = el("div", "gallery");
-    (images || []).forEach((image) => {
+    (images || []).forEach((image, i) => {
       const fig = el("figure");
+      const open = el("button", "gallery-item");
+      open.type = "button";
+      open.setAttribute("aria-label", "View image" + (image.caption ? ": " + image.caption : " " + (i + 1)));
       const img = el("img");
       img.src = image.src;
       img.alt = image.caption || "";
       img.loading = "lazy";
-      img.addEventListener("click", () => openLightbox(image));
-      fig.appendChild(img);
+      open.appendChild(img);
+      open.addEventListener("click", () => openLightbox(image));
+      fig.appendChild(open);
       if (image.caption) fig.appendChild(el("figcaption", "", image.caption));
       wrap.appendChild(fig);
     });
     return wrap;
   }
 
-  function imageCount(images) {
-    const n = (images || []).length;
-    return n ? n + (n === 1 ? " image" : " images") : "";
+  function countLabel(n, word) {
+    return n ? n + " " + word + (n === 1 ? "" : "s") : "";
   }
 
   // ---------- lightbox ----------
+  // A <dialog> so it opens above other dialogs (e.g. a trade post) and handles Escape + focus.
 
   let lightbox;
   function openLightbox(image) {
     if (!lightbox) {
-      lightbox = el("div", "lightbox");
-      lightbox.innerHTML = '<img alt=""><p></p>';
-      lightbox.addEventListener("click", () => lightbox.classList.remove("open"));
-      document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape") lightbox.classList.remove("open");
-      });
+      lightbox = el("dialog", "lightbox");
+      lightbox.setAttribute("aria-label", "Image viewer");
+      const close = el("button", "lightbox-close", "×");
+      close.type = "button";
+      close.setAttribute("aria-label", "Close image");
+      lightbox.append(close, el("img"), el("p"));
+      lightbox.addEventListener("click", () => lightbox.close());
       document.body.appendChild(lightbox);
     }
-    lightbox.querySelector("img").src = image.src;
+    const img = lightbox.querySelector("img");
+    img.src = image.src;
+    img.alt = image.caption || "";
     lightbox.querySelector("p").textContent = image.caption || "";
-    lightbox.classList.add("open");
+    lightbox.showModal();
   }
+
+  window.CrimsonUI = { el, paragraphs, prose, gallery, countLabel, openLightbox };
+
+  // ---------- team (home page carousel + Team page) ----------
+
+  function profileCard(member, full) {
+    const card = el("article", "profile-card");
+    const img = el("img", "avatar");
+    img.src = member.photo || "images/logo.svg";
+    img.alt = member.name + " profile picture";
+    img.width = 96;
+    img.height = 96;
+    card.append(img, el("h3", "", member.name), el("p", "role", member.role));
+    if (full) {
+      const bio = prose(member.bio || member.summary, "bio");
+      card.appendChild(bio);
+    } else {
+      card.appendChild(el("p", "bio", member.summary || member.bio));
+    }
+    return card;
+  }
+
+  const teamScroll = document.getElementById("teamScroll");
+  if (teamScroll) team.forEach((m) => teamScroll.appendChild(profileCard(m, false)));
+
+  const teamList = document.getElementById("teamList");
+  if (teamList) team.forEach((m) => teamList.appendChild(profileCard(m, true)));
 
   // ---------- home page ----------
 
   const latestPosts = document.getElementById("latestPosts");
   if (latestPosts) {
-    latestPosts.innerHTML = "";
-    content.posts.slice(0, 3).forEach((post) => {
+    posts.slice(0, 3).forEach((post) => {
       const card = el("a", "post post-link");
-      card.href = "blog.html#" + post.id;
+      card.href = "blog.html#post-" + post.id;
       card.append(el("p", "date", post.date), el("h3", "", post.title), el("p", "", post.summary));
       latestPosts.appendChild(card);
     });
@@ -87,8 +130,7 @@
 
   const latestProjects = document.getElementById("latestProjects");
   if (latestProjects) {
-    latestProjects.innerHTML = "";
-    content.projects.slice(0, 3).forEach((project) => {
+    projects.slice(0, 3).forEach((project) => {
       const card = el("a", "card project-tile");
       card.href = "project.html?id=" + encodeURIComponent(project.id);
       const body = el("div", "project-tile-body");
@@ -102,18 +144,20 @@
 
   const blogList = document.getElementById("blogList");
   if (blogList) {
-    content.posts.forEach((post) => {
+    posts.forEach((post) => {
       const item = el("article", "thread");
-      item.id = post.id;
+      item.id = "post-" + post.id;
 
+      const heading = el("h3", "thread-heading");
       const head = el("button", "thread-head");
       head.type = "button";
       head.setAttribute("aria-expanded", "false");
-      const main = el("div", "thread-main");
-      main.append(el("h3", "", post.title), el("p", "thread-summary", post.summary));
-      const meta = el("div", "thread-meta");
-      meta.append(el("span", "date", post.date), el("span", "", imageCount(post.images)));
+      const main = el("span", "thread-main");
+      main.append(el("span", "thread-title", post.title), el("span", "thread-summary", post.summary));
+      const meta = el("span", "thread-meta");
+      meta.append(el("span", "date", post.date), el("span", "", countLabel((post.images || []).length, "image")));
       head.append(main, meta, el("span", "chevron", "▸"));
+      heading.appendChild(head);
 
       const full = el("div", "thread-body");
       full.hidden = true;
@@ -124,16 +168,16 @@
         full.hidden = !open;
         item.classList.toggle("open", open);
         head.setAttribute("aria-expanded", String(open));
-        history.replaceState(null, "", open ? "#" + post.id : location.pathname);
+        history.replaceState(null, "", open ? "#" + item.id : location.pathname);
       });
 
-      item.append(head, full);
+      item.append(heading, full);
       blogList.appendChild(item);
     });
 
-    // Opening blog.html#post-id (e.g. from the home page) expands that post.
-    const target = location.hash && document.getElementById(decodeURIComponent(location.hash.slice(1)));
-    if (target && target.classList.contains("thread")) {
+    // Opening blog.html#post-<id> (e.g. from the home page) expands that post.
+    const target = location.hash.startsWith("#post-") && document.getElementById(decodeURIComponent(location.hash.slice(1)));
+    if (target) {
       target.querySelector(".thread-head").click();
       target.scrollIntoView({ block: "start" });
     }
@@ -143,17 +187,17 @@
 
   const projectList = document.getElementById("projectList");
   if (projectList) {
-    content.projects.forEach((project) => {
+    projects.forEach((project) => {
       const row = el("a", "thread thread-head project-row");
       row.href = "project.html?id=" + encodeURIComponent(project.id);
 
       const main = el("div", "thread-main");
-      main.append(el("span", "status", project.status), el("h3", "", project.name), el("p", "thread-summary", project.summary));
+      main.append(el("span", "status", project.status), el("h3", "thread-title", project.name), el("p", "thread-summary", project.summary));
 
       const updates = project.updates || [];
       const meta = el("div", "thread-meta");
       meta.append(
-        el("span", "", updates.length + (updates.length === 1 ? " update" : " updates")),
+        el("span", "", countLabel(updates.length, "update") || "No updates yet"),
         el("span", "date", updates.length ? "Last: " + updates[0].date : "")
       );
 
@@ -167,9 +211,10 @@
   const projectPage = document.getElementById("projectPage");
   if (projectPage) {
     const id = new URLSearchParams(location.search).get("id");
-    const project = content.projects.find((p) => p.id === id);
+    const project = projects.find((p) => p.id === id);
 
     if (!project) {
+      document.title = "Project not found — Crimson Development";
       projectPage.append(
         el("h2", "", "Project not found"),
         el("p", "section-note", "That project doesn't exist or has been moved.")
@@ -180,19 +225,13 @@
       const hero = el("header", "project-hero");
       const heroText = el("div", "project-hero-text");
       heroText.append(el("span", "status", project.status), el("h1", "", project.name), el("p", "intro", project.summary));
-      hero.append(cover(project, "project-hero-cover"), heroText);
+      hero.append(cover(project, "project-hero-cover", true), heroText);
       projectPage.appendChild(hero);
 
       function section(title, ...children) {
         const s = el("section", "project-section");
         s.append(el("h2", "", title), ...children);
         projectPage.appendChild(s);
-      }
-
-      function prose(text, extraClass) {
-        const div = el("div", "prose" + (extraClass ? " " + extraClass : ""));
-        div.appendChild(paragraphs(text));
-        return div;
       }
 
       if (project.description) section("Overview", prose(project.description));

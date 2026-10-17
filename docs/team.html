@@ -5,11 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Team — Crimson Development</title>
   <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <nav>
-    <a class="logo" href="index.html"><img class="logo-mark" src="images/logo.svg" alt="">CRIMSON<span>DEV</span></a>
+    <a class="logo" href="index.html"><img class="logo-mark" src="images/logo.svg" width="26" height="28" alt="">CRIMSON<span>DEV</span></a>
     <div class="links">
       <a href="team.html">Team</a>
       <a href="blog.html">Dev Blog</a>
@@ -20,37 +23,22 @@
   </nav>
 
   <main>
-    <section>
-      <h2>The Team</h2>
-      <p class="section-note">This page will contain full profiles for every Crimson Development member.</p>
-
-      <div class="h-scroll">
-        <article class="profile-card">
-          <img class="avatar" src="images/team/cj.png" alt="CJ profile picture">
-          <h3>CJ</h3>
-          <p class="role">Founder / Lead Developer</p>
-          <p class="bio">Hi, my name is CJ. I am an avgeek and started CRIMSONDEV off our first project Skarik.</p>
-        </article>
-
-        <article class="profile-card">
-          <img class="avatar" src="https://via.placeholder.com/160" alt="Aves profile picture">
-          <h3>Aves</h3>
-          <p class="role">Map Designer</p>
-          <p class="bio">Currently working on map layout, terrain and environment design.</p>
-        </article>
-
-        <article class="profile-card">
-          <img class="avatar" src="images/team/rayzen.png" alt="RayZen profile picture">
-          <h3>RayZen</h3>
-          <p class="role">Chief Advisor / Community Management</p>
-          <p class="bio">Managing events, announcements and community feedback.</p>
-        </article>
+    <section class="page-top">
+      <div class="section-head">
+        <h2>The Team</h2>
+        <p class="section-note">The people behind Crimson Development.</p>
       </div>
+
+      <!-- Filled from js/content.js -->
+      <div class="team-grid" id="teamList"></div>
     </section>
   </main>
 
   <footer>
     <p>© 2026 Crimson Development</p>
   </footer>
+
+  <script src="js/content.js"></script>
+  <script src="js/site.js"></script>
 </body>
 </html>

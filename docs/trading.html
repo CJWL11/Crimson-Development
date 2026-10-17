@@ -5,11 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Trading Hub — Crimson Development</title>
   <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <nav>
-    <a class="logo" href="index.html"><img class="logo-mark" src="images/logo.svg" alt="">CRIMSON<span>DEV</span></a>
+    <a class="logo" href="index.html"><img class="logo-mark" src="images/logo.svg" width="26" height="28" alt="">CRIMSON<span>DEV</span></a>
     <div class="links">
       <a href="team.html">Team</a>
       <a href="blog.html">Dev Blog</a>
@@ -20,34 +23,101 @@
   </nav>
 
   <main>
-    <section>
-      <h2>Trading Hub</h2>
-
-      <p class="notice">
-        The Trading Hub is for community use only. Nothing here is financial advice.
+    <section class="page-top">
+      <div class="section-head">
+        <h2>Trading Hub</h2>
+      </div>
+      <p class="lead">
+        User-to-user trading for props and maps. No money changes hands: members swap their creations with each other.
       </p>
 
-      <div class="grid">
-        <article class="card">
-          <h3>User-to-User Trading</h3>
-          <p>A unique system allowing users to trade props and maps.</p>
+      <div class="grid two">
+        <article class="card info-card">
+          <h3>How it works</h3>
+          <p>Open a trading page with what you're offering. A manager checks it, then it goes live on the forum below. Interested in something? Message the poster on Discord.</p>
         </article>
-
-        <article class="card">
+        <article class="card info-card" id="rules">
           <h3>Trading Regulations</h3>
-          <p>Rules and requirements for trading within the community.</p>
-        </article>
-
-        <article class="card">
-          <h3>Trading Forum</h3>
-          <p>Props and maps currently open for trading.</p>
+          <p>Rules and requirements for trading within the community will be posted here.</p>
         </article>
       </div>
     </section>
+
+    <section id="forum">
+      <div class="section-head">
+        <h2>Trading Forum</h2>
+        <button id="openTradeForm" class="button" type="button">+ Open a Trading Page</button>
+      </div>
+
+      <!-- Filled by js/trades.js -->
+      <div class="trade-list" id="tradeList"></div>
+    </section>
   </main>
+
+  <!-- Viewing a single trade -->
+  <dialog id="tradeView" class="modal" aria-label="Trade post">
+    <div class="modal-body">
+      <form method="dialog"><button class="modal-close" aria-label="Close">×</button></form>
+      <div id="tradeViewBody"></div>
+    </div>
+  </dialog>
+
+  <!-- Opening a new trading page -->
+  <dialog id="tradeDialog" class="modal" aria-labelledby="tradeDialogTitle">
+    <div class="modal-body">
+      <button class="modal-close" type="button" data-close aria-label="Close">×</button>
+      <h2 id="tradeDialogTitle">Open a Trading Page</h2>
+
+      <form id="tradeForm" class="form" novalidate>
+        <div class="form-row">
+          <div class="field">
+            <label for="tradeName">Your name</label>
+            <input id="tradeName" type="text" maxlength="40" autocomplete="nickname" required autofocus>
+          </div>
+          <div class="field">
+            <label for="tradeDiscord">Discord username</label>
+            <input id="tradeDiscord" type="text" maxlength="40" placeholder="e.g. crimson_cj" required>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="tradeTitle">What are you trading?</label>
+          <input id="tradeTitle" type="text" maxlength="80" placeholder="e.g. Snowy checkpoint prop pack" required>
+        </div>
+
+        <div class="field">
+          <label for="tradeDescription">Description</label>
+          <textarea id="tradeDescription" rows="6" maxlength="2000" placeholder="What's included, what you'd like in return..." required></textarea>
+        </div>
+
+        <div class="field">
+          <label for="tradeImages">Images <span class="optional">(optional, up to 4)</span></label>
+          <input id="tradeImages" type="file" accept="image/*" multiple>
+          <div class="upload-previews" id="tradePreviews"></div>
+        </div>
+
+        <p class="error" id="tradeError" role="alert"></p>
+
+        <div class="form-actions">
+          <button class="button" type="submit">Send for approval</button>
+          <button class="small-button" type="button" data-close>Cancel</button>
+        </div>
+      </form>
+
+      <div id="tradeDone" class="form-done" hidden>
+        <h3>Sent for approval</h3>
+        <p>Thanks! A manager will check your trading page, and it'll appear on the forum once it's approved.</p>
+        <button class="button" type="button" data-close>Done</button>
+      </div>
+    </div>
+  </dialog>
 
   <footer>
     <p>© 2026 Crimson Development</p>
   </footer>
+
+  <script src="js/content.js"></script>
+  <script src="js/site.js"></script>
+  <script src="js/trades.js"></script>
 </body>
 </html>

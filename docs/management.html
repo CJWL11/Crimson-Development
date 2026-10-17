@@ -3,34 +3,53 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
   <title>Management — Crimson Development</title>
   <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <nav>
-    <a class="logo" href="index.html"><img class="logo-mark" src="images/logo.svg" alt="">CRIMSON<span>DEV</span></a>
+    <a class="logo" href="index.html"><img class="logo-mark" src="images/logo.svg" width="26" height="28" alt="">CRIMSON<span>DEV</span></a>
     <div class="links">
       <a href="team.html">Team</a>
       <a href="blog.html">Dev Blog</a>
       <a href="projects.html">Projects</a>
       <a href="trading.html">Trading Hub</a>
     </div>
+    <a class="small-button" href="management.html" aria-current="page">Management</a>
   </nav>
 
   <main>
-    <section>
-      <h2>Management Mode</h2>
+    <section class="page-top">
+      <div class="section-head">
+        <h2>Management</h2>
+      </div>
 
-      <p class="notice">
-        This area is for Crimson Development staff. Future versions will allow
-        authorised team members to create and edit blog posts and project updates.
-      </p>
+      <form id="loginForm" class="form login-form">
+        <p class="section-note">This area is for Crimson Development staff.</p>
+        <div class="field">
+          <label for="accessCode">Access code</label>
+          <input id="accessCode" type="password" autocomplete="current-password" required>
+        </div>
+        <p id="loginError" class="error" role="alert" hidden></p>
+        <button class="button" type="submit">Enter management mode</button>
+      </form>
 
-      <div id="loginBox">
-        <label for="accessCode">Access code</label>
-        <input id="accessCode" type="password" placeholder="Enter access code">
-        <button class="button">Enter management mode</button>
+      <div id="dashboard" hidden>
+        <div class="section-head dashboard-head">
+          <p class="section-note">Review trading pages before they go live on the forum.</p>
+          <button id="logoutButton" class="small-button" type="button">Log out</button>
+        </div>
+
+        <h3 class="queue-heading">Awaiting approval (<span id="pendingCount">0</span>)</h3>
+        <div class="review-list" id="pendingList"></div>
+
+        <h3 class="queue-heading">Live on the forum (<span id="liveCount">0</span>)</h3>
+        <div class="review-list" id="liveList"></div>
       </div>
     </section>
   </main>
@@ -38,5 +57,9 @@
   <footer>
     <p>© 2026 Crimson Development</p>
   </footer>
+
+  <script src="js/content.js"></script>
+  <script src="js/site.js"></script>
+  <script src="js/trades.js"></script>
 </body>
 </html>
