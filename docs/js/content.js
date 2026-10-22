@@ -90,20 +90,6 @@ window.CRIMSON = {
         { src: "images/projects/skarvik/terrain-blockout.jpg", caption: "Terrain blockout (work in progress)" },
         { src: "images/projects/skarvik/high-ground.jpg", caption: "High ground rising above the forest" },
         { src: "images/projects/skarvik/treeline.jpg", caption: "Along the treeline" }
-      ],
-      updates: [
-        {
-          title: "FOB complete",
-          date: "16 Oct 2026",
-          body: "The Forward Operating Base is finished. Work now moves on to the basin directly below the FOB.",
-          images: []
-        },
-        {
-          title: "Project started",
-          date: "14 Oct 2026",
-          body: "Skarvik is now in development. Map layout and terrain work have begun.",
-          images: []
-        }
       ]
     },
     {
@@ -120,15 +106,8 @@ window.CRIMSON = {
         { src: "images/projects/isola-veyra/beach-cliffs.jpg", caption: "Blockout: beach and cliffs" },
         { src: "images/projects/isola-veyra/hills.jpg", caption: "Blockout: hills above the beach" },
         { src: "images/projects/isola-veyra/outline.jpg", caption: "First outline of the island" }
-      ],
-      updates: [
-        {
-          title: "Blockout under way",
-          date: "22 Oct 2026",
-          body: "Isola Veyra is now in development. The island's outline, beach, cliffs and helipad have been blocked out.",
-          images: []
-        }
       ]
+      // Optional: add updates: [{ title, date, body, images }] to show a Progress Updates timeline.
     }
   ]
 };

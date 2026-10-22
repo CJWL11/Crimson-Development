@@ -101,34 +101,71 @@
   } catch (e) {}
   let audio;
 
-  // One square-wave blip sliding from one pitch to another.
-  function blip(from, to, length, delay) {
-    const start = audio.currentTime + (delay || 0);
-    const osc = audio.createOscillator();
-    const filter = audio.createBiquadFilter();
+  // Quick volume envelope: instant attack, fast decay.
+  function envelope(start, peak, length) {
     const gain = audio.createGain();
-    osc.type = "square";
-    osc.frequency.setValueAtTime(from, start);
-    osc.frequency.exponentialRampToValueAtTime(to, start + length);
-    filter.type = "lowpass";
-    filter.frequency.value = 2400;
     gain.gain.setValueAtTime(0.0001, start);
-    gain.gain.exponentialRampToValueAtTime(0.05, start + 0.004);
+    gain.gain.exponentialRampToValueAtTime(peak, start + 0.002);
     gain.gain.exponentialRampToValueAtTime(0.0001, start + length);
-    osc.connect(filter).connect(gain).connect(audio.destination);
-    osc.start(start);
-    osc.stop(start + length + 0.02);
+    gain.connect(audio.destination);
+    return gain;
+  }
+
+  // Mechanical "tk": a few milliseconds of band-passed noise, like a relay or switch.
+  let noise;
+  function tick(start, pitch, peak) {
+    if (!noise) {
+      noise = audio.createBuffer(1, Math.floor(audio.sampleRate * 0.03), audio.sampleRate);
+      const data = noise.getChannelData(0);
+      for (let i = 0; i < data.length; i++) data[i] = Math.random() * 2 - 1;
+    }
+    const src = audio.createBufferSource();
+    src.buffer = noise;
+    const band = audio.createBiquadFilter();
+    band.type = "bandpass";
+    band.frequency.value = pitch;
+    band.Q.value = 2;
+    src.connect(band).connect(envelope(start, peak, 0.012));
+    src.start(start);
+    src.stop(start + 0.03);
+  }
+
+  // Classic robot tone: a steady square wave, ring-modulated for a metallic buzz.
+  function beep(freq, start, length) {
+    const osc = audio.createOscillator();
+    osc.type = "square";
+    osc.frequency.value = freq;
+    const ring = audio.createGain();
+    ring.gain.value = 0;
+    const lfo = audio.createOscillator();
+    lfo.frequency.value = 70;
+    lfo.connect(ring.gain);
+    const lowpass = audio.createBiquadFilter();
+    lowpass.type = "lowpass";
+    lowpass.frequency.value = 1800;
+    osc.connect(ring).connect(lowpass).connect(envelope(start, 0.06, length));
+    [osc, lfo].forEach((o) => {
+      o.start(start);
+      o.stop(start + length + 0.02);
+    });
   }
 
   const sounds = {
-    click: () => blip(1500, 500, 0.045),
+    click: () => {
+      const now = audio.currentTime;
+      tick(now, 3200, 0.35);
+      tick(now + 0.018, 1400, 0.18); // second, lower tick gives a "click-clack"
+    },
+    // Stepped notes (no slides): beep-boop up when opening, down when closing.
     open: () => {
-      blip(500, 700, 0.05);
-      blip(800, 1200, 0.06, 0.055);
+      const now = audio.currentTime + 0.03;
+      beep(330, now, 0.05);
+      beep(495, now + 0.06, 0.07);
     },
     close: () => {
-      blip(1100, 800, 0.05);
-      blip(700, 400, 0.06, 0.055);
+      const now = audio.currentTime + 0.03;
+      beep(495, now, 0.05);
+      beep(330, now + 0.06, 0.07);
     }
   };
 
@@ -296,12 +333,11 @@
       const main = el("div", "thread-main");
       main.append(el("span", "status", project.status), el("h3", "thread-title", project.name), el("p", "thread-summary", project.summary));
 
-      const updates = project.updates || [];
       const meta = el("div", "thread-meta");
-      meta.append(
-        el("span", "", countLabel(updates.length, "update") || "No updates yet"),
-        el("span", "date", updates.length ? "Last: " + updates[0].date : "")
-      );
+      const updates = project.updates || [];
+      if (updates.length) {
+        meta.append(el("span", "", countLabel(updates.length, "update")), el("span", "date", "Last: " + updates[0].date));
+      }
 
       row.append(cover(project, "row-cover"), main, meta, el("span", "chevron", "▸"));
       projectList.appendChild(row);
@@ -340,14 +376,16 @@
       if (project.lore) section("Lore", prose(project.lore, "lore"));
       if (project.images && project.images.length) section("Gallery", gallery(project.images));
 
-      const timeline = el("div", "timeline");
-      (project.updates || []).forEach((update) => {
-        const entry = el("article", "timeline-entry");
-        entry.append(el("p", "date", update.date), el("h3", "", update.title), prose(update.body), gallery(update.images));
-        timeline.appendChild(entry);
-      });
-      if (!timeline.children.length) timeline.appendChild(el("p", "section-note", "No updates yet."));
-      section("Progress Updates", timeline);
+      // Progress Updates only appear when a project has some in content.js.
+      if (project.updates && project.updates.length) {
+        const timeline = el("div", "timeline");
+        project.updates.forEach((update) => {
+          const entry = el("article", "timeline-entry");
+          entry.append(el("p", "date", update.date), el("h3", "", update.title), prose(update.body), gallery(update.images));
+          timeline.appendChild(entry);
+        });
+        section("Progress Updates", timeline);
+      }
     }
   }
 })();
