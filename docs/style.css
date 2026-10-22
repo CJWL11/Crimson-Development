@@ -97,8 +97,49 @@ nav {
     justify-self: start;
   }
 
-  nav > .small-button {
+  nav > .nav-actions {
     justify-self: end;
+  }
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.sfx-toggle[aria-pressed="false"] {
+  opacity: 0.6;
+}
+
+/* ---------- Scrollbars (crimson thumb on a dark track) ---------- */
+
+::-webkit-scrollbar {
+  width: 12px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track,
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--crimson);
+  background-clip: padding-box;
+  border: 3px solid transparent;
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--crimson-bright);
+  background-clip: padding-box;
+}
+
+/* Firefox (only where the WebKit rules above don't apply, so Chrome keeps the rounded style) */
+@supports not selector(::-webkit-scrollbar) {
+  * {
+    scrollbar-color: var(--crimson) var(--bg);
   }
 }
 

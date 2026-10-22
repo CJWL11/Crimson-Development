@@ -91,6 +91,109 @@
 
   window.CrimsonUI = { el, paragraphs, prose, gallery, countLabel, openLightbox };
 
+  // ---------- sound effects ----------
+  // Short robotic blips made with the Web Audio API (no sound files). Visitors can turn them off.
+
+  const SFX_KEY = "crimsonSfx";
+  let sfxOn = true;
+  try {
+    sfxOn = localStorage.getItem(SFX_KEY) !== "off";
+  } catch (e) {}
+  let audio;
+
+  // One square-wave blip sliding from one pitch to another.
+  function blip(from, to, length, delay) {
+    const start = audio.currentTime + (delay || 0);
+    const osc = audio.createOscillator();
+    const filter = audio.createBiquadFilter();
+    const gain = audio.createGain();
+    osc.type = "square";
+    osc.frequency.setValueAtTime(from, start);
+    osc.frequency.exponentialRampToValueAtTime(to, start + length);
+    filter.type = "lowpass";
+    filter.frequency.value = 2400;
+    gain.gain.setValueAtTime(0.0001, start);
+    gain.gain.exponentialRampToValueAtTime(0.05, start + 0.004);
+    gain.gain.exponentialRampToValueAtTime(0.0001, start + length);
+    osc.connect(filter).connect(gain).connect(audio.destination);
+    osc.start(start);
+    osc.stop(start + length + 0.02);
+  }
+
+  const sounds = {
+    click: () => blip(1500, 500, 0.045),
+    open: () => {
+      blip(500, 700, 0.05);
+      blip(800, 1200, 0.06, 0.055);
+    },
+    close: () => {
+      blip(1100, 800, 0.05);
+      blip(700, 400, 0.06, 0.055);
+    }
+  };
+
+  function play(name) {
+    if (!sfxOn) return;
+    try {
+      audio = audio || new (window.AudioContext || window.webkitAudioContext)();
+      if (audio.state === "suspended") audio.resume();
+      sounds[name]();
+    } catch (e) {
+      // No audio support: stay silent.
+    }
+  }
+
+  const CLICKABLE = "a[href], button, input[type='file'], [role='button']";
+
+  // pointerdown (not click) so the sound starts before a link navigates away.
+  document.addEventListener("pointerdown", (e) => {
+    const target = e.button === 0 && e.target.closest(CLICKABLE);
+    if (target && !target.disabled) play("click");
+  });
+
+  document.addEventListener("keydown", (e) => {
+    const target = e.target.closest && e.target.closest(CLICKABLE);
+    if (target && !target.disabled && (e.key === "Enter" || (e.key === " " && target.matches("button")))) play("click");
+  });
+
+  // Every pop-up (trade posts, the trade form, the image viewer) chirps when it opens and closes.
+  if (window.HTMLDialogElement) {
+    const showModal = HTMLDialogElement.prototype.showModal;
+    HTMLDialogElement.prototype.showModal = function () {
+      showModal.call(this);
+      play("open");
+    };
+    document.addEventListener("close", (e) => {
+      if (e.target instanceof HTMLDialogElement) play("close");
+    }, true);
+  }
+
+  // SFX on/off switch, added to the right-hand side of the nav on every page.
+  const nav = document.querySelector("nav");
+  if (nav) {
+    const actions = el("div", "nav-actions");
+    const toggle = el("button", "small-button sfx-toggle");
+    toggle.type = "button";
+    toggle.title = "Turn click sounds on or off";
+    const label = () => {
+      toggle.textContent = sfxOn ? "SFX: ON" : "SFX: OFF";
+      toggle.setAttribute("aria-pressed", String(sfxOn));
+    };
+    label();
+    toggle.addEventListener("click", () => {
+      sfxOn = !sfxOn;
+      try {
+        localStorage.setItem(SFX_KEY, sfxOn ? "on" : "off");
+      } catch (e) {}
+      label();
+      if (sfxOn) play("open");
+    });
+    actions.appendChild(toggle);
+    const manage = nav.querySelector(":scope > .small-button");
+    if (manage) actions.appendChild(manage);
+    nav.appendChild(actions);
+  }
+
   // ---------- team (home page carousel + Team page) ----------
 
   function profileCard(member, full) {

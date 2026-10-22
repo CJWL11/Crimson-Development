@@ -105,6 +105,30 @@ window.CRIMSON = {
           images: []
         }
       ]
+    },
+    {
+      id: "isola-veyra", // used in links: project.html?id=isola-veyra
+      name: "Isola Veyra",
+      status: "In development",
+      cover: "images/projects/isola-veyra/cover.jpg",
+      summary: "A tropical island in the Canary Islands area, home to a rich and corrupt CEO.",
+      description: "Isola Veyra is a BRM5 RGE map set on a tropical island in the Canary Islands area.",
+      lore: "Isola Veyra is home to a rich and corrupt CEO.",
+      images: [
+        { src: "images/projects/isola-veyra/cover.jpg", caption: "Blockout: the island and helipad" },
+        { src: "images/projects/isola-veyra/from-above.jpg", caption: "Blockout: the island from above" },
+        { src: "images/projects/isola-veyra/beach-cliffs.jpg", caption: "Blockout: beach and cliffs" },
+        { src: "images/projects/isola-veyra/hills.jpg", caption: "Blockout: hills above the beach" },
+        { src: "images/projects/isola-veyra/outline.jpg", caption: "First outline of the island" }
+      ],
+      updates: [
+        {
+          title: "Blockout under way",
+          date: "22 Oct 2026",
+          body: "Isola Veyra is now in development. The island's outline, beach, cliffs and helipad have been blocked out.",
+          images: []
+        }
+      ]
     }
   ]
 };
