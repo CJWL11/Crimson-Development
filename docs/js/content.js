@@ -29,6 +29,18 @@ window.CRIMSON = {
       photo: "images/team/aves.jpg",
       summary: "Playing BRM5 since around 2022. Likes RGE and makes props every once in a while.",
       bio: "I'm Aves. I've been playing BRM5 since around 2022, but really started LARPing hard around January 2026.\n\nI like RGE and also make props every once in a while. I met CJ in a faction, and that's where I've spent most of my time in RGE."
+    },
+    {
+      name: "acrxvrxxx",
+      role: "Developer",
+      photo: "images/team/acrxvrxxx.jpg"
+      // no bio yet: add summary + bio here when ready
+    },
+    {
+      name: "Kartime",
+      role: "Developer",
+      photo: "images/team/kartime.jpg"
+      // no bio yet: add summary + bio here when ready
     }
   ],
 

@@ -101,10 +101,9 @@
     img.width = 96;
     img.height = 96;
     card.append(img, el("h3", "", member.name), el("p", "role", member.role));
-    if (full) {
-      const bio = prose(member.bio || member.summary, "bio");
-      card.appendChild(bio);
-    } else {
+    if (full && (member.bio || member.summary)) {
+      card.appendChild(prose(member.bio || member.summary, "bio"));
+    } else if (member.summary || member.bio) {
       card.appendChild(el("p", "bio", member.summary || member.bio));
     }
     return card;
